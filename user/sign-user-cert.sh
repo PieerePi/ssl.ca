@@ -6,11 +6,11 @@
 
 CERT=$1
 if [ $# -ne 1 ]; then
-        echo "Usage: $0 user@email.address.com"
-        exit 1
+	echo "Usage: $0 user@email.address.com"
+	exit 1
 fi
 if [ ! -f $CERT.csr ]; then
-        echo "No $CERT.csr round. You must create that first."
+	echo "No $CERT.csr round. You must create that first."
 	exit 1
 fi
 # Check for root CA key
@@ -23,13 +23,13 @@ fi
 
 #   make sure environment exists
 if [ ! -d ca.db.certs ]; then
-    mkdir ca.db.certs
+	mkdir ca.db.certs
 fi
 if [ ! -f ca.db.serial ]; then
-    echo '01' >ca.db.serial
+	echo '01' >ca.db.serial
 fi
 if [ ! -f ca.db.index ]; then
-    cp /dev/null ca.db.index
+	cp /dev/null ca.db.index
 fi
 
 #  create the CA requirement to sign the cert
@@ -45,7 +45,7 @@ serial                  = \$dir/ca.db.serial
 RANDFILE                = /dev/random
 certificate             = \$dir/ca.crt
 private_key             = \$dir/ca.key
-default_days            = 10000
+default_days            = 398
 default_crl_days        = 30
 default_md              = sha256
 preserve                = yes

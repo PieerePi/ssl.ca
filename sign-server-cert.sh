@@ -5,12 +5,12 @@
 ##
 
 CERT=$1
-if [ $# -ne 1 ]; then
-        echo "Usage: $0 <www.domain.com>"
-        exit 1
+if [ $# -lt 1 ]; then
+	echo "Usage: $0 <www.domain1.com> [www.domain2.com]"
+	exit 1
 fi
 if [ ! -f $CERT.csr ]; then
-        echo "No $CERT.csr round. You must create that first."
+	echo "No $CERT.csr round. You must create that first."
 	exit 1
 fi
 # Check for root CA key
@@ -19,22 +19,25 @@ if [ ! -f ca.key -o ! -f ca.crt ]; then
 	exit 1
 fi
 
-FIELD1=DNS.1
+IPINDEX=1
+DNSINDEX=1
 if [[ $CERT =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
-	FIELD1=IP.1
+	FIELD1=IP.$((IPINDEX++))
+else
+	FIELD1=DNS.$((DNSINDEX++))
 fi
 
 # Sign it with our CA key #
 
 #   make sure environment exists
 if [ ! -d ca.db.certs ]; then
-    mkdir ca.db.certs
+	mkdir ca.db.certs
 fi
 if [ ! -f ca.db.serial ]; then
-    echo '01' >ca.db.serial
+	echo '01' >ca.db.serial
 fi
 if [ ! -f ca.db.index ]; then
-    cp /dev/null ca.db.index
+	cp /dev/null ca.db.index
 fi
 
 #  create the CA requirement to sign the cert
@@ -50,7 +53,7 @@ serial                  = \$dir/ca.db.serial
 RANDFILE                = /dev/random
 certificate             = \$dir/ca.crt
 private_key             = \$dir/ca.key
-default_days            = 10000
+default_days            = 398
 default_crl_days        = 30
 default_md              = sha256
 preserve                = no
@@ -73,6 +76,15 @@ subjectAltName		= @alt_names
 [ alt_names ]
 $FIELD1 = $CERT
 EOT
+
+if [ $# -gt 1 -a $1 != $2 ]; then
+	if [[ $2 =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+		FIELD2=IP.$((IPINDEX++))
+	else
+		FIELD2=DNS.$((DNSINDEX++))
+	fi
+	echo "$FIELD2 = $2" >> ca.config
+fi
 
 #  sign the certificate
 echo "CA signing: $CERT.csr -> $CERT.crt:"

@@ -7,12 +7,12 @@
 # Create the key. This should be done once per cert.
 CERT=$1
 if [ $# -ne 1 ]; then
-        echo "Usage: $0 user@email.address.com"
-        exit 1
+	echo "Usage: $0 user@email.address.com"
+	exit 1
 fi
 if [ ! -f $CERT.key ]; then
 	echo "No $CERT.key round. Generating one"
-	openssl genrsa -out $CERT.key 4096
+	openssl genrsa -out $CERT.key 2048
 	echo ""
 fi
 
@@ -20,7 +20,7 @@ fi
 CONFIG="user-cert.conf"
 cat >$CONFIG <<EOT
 [ req ]
-default_bits			= 4096
+default_bits			= 2048
 default_keyfile			= user.key
 distinguished_name		= req_distinguished_name
 string_mask			= nombstr

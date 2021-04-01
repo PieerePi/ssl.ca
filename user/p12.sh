@@ -6,14 +6,14 @@
 
 CERT=$1
 if [ $# -ne 1 ]; then
-        echo "Usage: $0 user@email.address.com"
-        exit 1
+	echo "Usage: $0 user@email.address.com"
+	exit 1
 fi
 
 # Check for requirement
 if [ ! -f $CERT.key -o ! -f $CERT.crt -o ! -f ca.crt ]; then
 	echo ""
-        echo "Cannot proceed because:"
+	echo "Cannot proceed because:"
 	echo "1. Must have root CA certification"
 	echo "2. Must have $CERT.key"
 	echo "1. Must have $CERT.crt"

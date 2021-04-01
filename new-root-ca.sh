@@ -7,7 +7,7 @@
 # Create the master CA key. This should be done once.
 if [ ! -f ca.key ]; then
 	echo "No Root CA key round. Generating one"
-	openssl genrsa -des3 -out ca.key 4096 -rand /dev/random
+	openssl genrsa -des3 -out ca.key 2048 -rand /dev/random
 	echo ""
 fi
 
@@ -15,7 +15,7 @@ fi
 CONFIG="root-ca.conf"
 cat >$CONFIG <<EOT
 [ req ]
-default_bits			= 4096
+default_bits			= 2048
 default_keyfile			= ca.key
 distinguished_name		= req_distinguished_name
 x509_extensions			= v3_ca
