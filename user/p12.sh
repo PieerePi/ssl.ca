@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ##
 ##  p12.sh - Collect the user certs and pack into pkcs12 format
 ##  Copyright (c) 2000 Yeak Nai Siew, All Rights Reserved. 

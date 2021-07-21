@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ##
 ##  sign-server-cert.sh - sign using our root CA the server cert
 ##  Copyright (c) 2000 Yeak Nai Siew, All Rights Reserved. 

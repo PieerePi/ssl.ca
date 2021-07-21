@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ##
 ##  new-server-cert.sh - create the server cert
 ##  Copyright (c) 2000 Yeak Nai Siew, All Rights Reserved. 

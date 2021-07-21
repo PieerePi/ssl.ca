@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ##
 ##  new-root-ca.sh - create the root CA
 ##  Copyright (c) 2000 Yeak Nai Siew, All Rights Reserved. 

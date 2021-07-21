@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ##
 ##  new-user-cert.sh - create the user cert for personal use.
 ##  Copyright (c) 2000 Yeak Nai Siew, All Rights Reserved. 

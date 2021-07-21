@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ##
 ##  sign-user-cert.sh - sign using our root CA the user cert
 ##  Copyright (c) 2000 Yeak Nai Siew, All Rights Reserved. 
