@@ -60,14 +60,17 @@ subjectAltName		= @alt_names
 $FIELD1 = $CERT
 EOT
 
-if [ $# -gt 1 -a $1 != $2 ]; then
-	if [[ $2 =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+shift 1
+while [ $# -gt 0 ]
+do
+	if [[ $1 =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
 		FIELD2=IP.$((IPINDEX++))
 	else
 		FIELD2=DNS.$((DNSINDEX++))
 	fi
-	echo "$FIELD2 = $2" >> $CONFIG
-fi
+	echo "$FIELD2 = $1" >> $CONFIG
+	shift
+done
 
 echo "Fill in certificate data"
 openssl req -new -config $CONFIG -key $CERT.key -out $CERT.csr

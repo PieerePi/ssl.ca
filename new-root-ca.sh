@@ -7,7 +7,7 @@
 # Create the master CA key. This should be done once.
 if [ ! -f ca.key ]; then
 	echo "No Root CA key round. Generating one"
-	openssl genrsa -des3 -out ca.key 2048 -rand /dev/random
+	openssl genrsa -des3 -out ca.key 2048
 	echo ""
 fi
 

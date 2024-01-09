@@ -77,14 +77,17 @@ subjectAltName		= @alt_names
 $FIELD1 = $CERT
 EOT
 
-if [ $# -gt 1 -a $1 != $2 ]; then
-	if [[ $2 =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+shift 1
+while [ $# -gt 0 ]
+do
+	if [[ $1 =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
 		FIELD2=IP.$((IPINDEX++))
 	else
 		FIELD2=DNS.$((DNSINDEX++))
 	fi
-	echo "$FIELD2 = $2" >> ca.config
-fi
+	echo "$FIELD2 = $1" >> ca.config
+	shift
+done
 
 #  sign the certificate
 echo "CA signing: $CERT.csr -> $CERT.crt:"
@@ -94,7 +97,9 @@ openssl verify -CAfile ca.crt $CERT.crt
 
 #  cleanup after SSLeay 
 rm -f ca.config
-rm -f ca.db.serial.old
-rm -f ca.db.index.old
-rm -f ca.db.index.attr.old
+#rm -f ca.db.serial.old
+#rm -f ca.db.index.old
+#rm -f ca.db.index.attr.old
+rm -rf ca.db.certs
+rm -f ca.db.*
 
